@@ -1,6 +1,6 @@
 [![make.fun · gta6-cover-art-01](https://make.fun/badge/gta6-cover-art-01.svg)](https://make.fun/bounty/gta6-cover-art-01)
-[![rank](https://make.fun/badge/gta6-cover-art-01/0xyfann/entry-gta6-cover-art-01/rank.svg)](https://make.fun/bounty/gta6-cover-art-01/leaderboard)
-[![reward](https://make.fun/badge/gta6-cover-art-01/0xyfann/entry-gta6-cover-art-01/reward.svg)](https://make.fun/bounty/gta6-cover-art-01)
+[![rank](https://make.fun/badge/gta6-cover-art-01/0xyfann/makefun-gta6-cover-art-01/rank.svg)](https://make.fun/bounty/gta6-cover-art-01/leaderboard)
+[![reward](https://make.fun/badge/gta6-cover-art-01/0xyfann/makefun-gta6-cover-art-01/reward.svg)](https://make.fun/bounty/gta6-cover-art-01)
 
 # Afterglow Cover Studio
 
