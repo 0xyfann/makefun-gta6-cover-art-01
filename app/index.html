@@ -1,75 +1,41 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: blob:; connect-src 'none'">
-  <title>Afterglow — Cover Studio</title>
-  <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="./style.css">
-  <script defer src="./src/cover.js"></script>
-  <script defer src="./src/roadster.js"></script>
-  <script defer src="./samples/demo-images.min.js"></script>
-  <script defer src="./src/main.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f4e7d2">
+<title>Afterglow Cover Studio</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="src/refinements.css">
+<link rel="icon" href="data:,">
+<script type="module" src="src/studio.js"></script>
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand"><i class="sun-mark" aria-hidden="true"></i><div><strong>AFTERGLOW</strong><span>COVER STUDIO</span></div></div>
-    <div class="top-actions"><span class="privacy"><i></i> Runs offline</span><button id="export" class="primary" type="button">Export PNG <span aria-hidden="true">↓</span></button></div>
-  </header>
-  <main class="studio">
-    <aside class="inspector" aria-label="Cover settings">
-      <section class="settings">
-        <div class="section-head"><h2>Photos</h2><button id="demo" class="text-button" type="button">Load demo</button></div>
-        <input id="photo" type="file" multiple accept="image/*" hidden>
-        <button id="add" class="upload" type="button"><span aria-hidden="true">＋</span> Add photos <small>or drop files</small></button>
-      </section>
-      <section class="settings">
-        <div class="section-head"><h2>Lettering</h2></div>
-        <label class="field" for="caption">Headline</label>
-        <textarea id="caption" rows="2" spellcheck="false" maxlength="100">LAST LIGHT
-CLUB</textarea>
-        <div class="text-fields">
-          <div><label class="field" for="eyebrow">Kicker</label><input id="eyebrow" maxlength="36" value="THE COASTAL EDIT"></div>
-          <div><label class="field" for="edition">Small print</label><input id="edition" maxlength="44" value="NO CURFEW. NO CAMERAS."></div>
-        </div>
-      </section>
-      <section class="settings look">
-        <div class="section-head"><h2>Look &amp; format</h2></div>
-        <div class="segments grades" aria-label="Color grade">
-          <button data-grade="sunset" aria-pressed="true"><i></i>Sunset</button>
-          <button data-grade="neon" aria-pressed="false"><i></i>Neon</button>
-          <button data-grade="gold" aria-pressed="false"><i></i>Gold</button>
-        </div>
-        <div class="segments formats" aria-label="Export size">
-          <button data-format="wide" aria-pressed="true"><i></i>16:9</button>
-          <button data-format="square" aria-pressed="false"><i></i>1:1</button>
-          <button data-format="portrait" aria-pressed="false"><i></i>4:5</button>
-        </div>
-      </section>
-      <section class="settings crop">
-        <div class="section-head"><h2 id="crop-title">Panel crop</h2><button id="reset" class="text-button" type="button">Reset crop</button></div>
-        <label class="field" for="source">Panel image</label>
-        <select id="source"></select>
-        <div class="slider"><label for="zoom">Zoom</label><input id="zoom" type="range" min="1" max="3" step="0.01" value="1"><output id="zoom-value" for="zoom">100%</output></div>
-        <div class="slider"><label for="pan-x">Left / right</label><input id="pan-x" type="range" min="-1" max="1" step="0.01" value="0"></div>
-        <div class="slider"><label for="pan-y">Up / down</label><input id="pan-y" type="range" min="-1" max="1" step="0.01" value="0"></div>
-      </section>
-    </aside>
-    <section class="workspace" aria-label="Live poster preview">
-      <div class="workspace-bar"><h1>Cover preview</h1><span id="dimensions" class="dimensions">1920 × 1080 PX</span></div>
-      <div class="stage" id="stage">
-        <div class="mat" id="mat">
-          <canvas id="cover" width="1920" height="1080" aria-label="Poster preview. Select a panel below to edit its crop."></canvas>
-          <canvas id="selection" width="1920" height="1080" aria-hidden="true"></canvas>
-        </div>
-      </div>
-      <div class="tray">
-        <div class="tray-head"><h2>Panels</h2><span id="tip">Select a panel or drag its photo to reframe.</span></div>
-        <div id="panels" class="panels" aria-label="Select panel"></div>
-      </div>
-      <p id="status" class="status" role="status" aria-live="polite"></p>
-    </section>
-  </main>
+<header class="topbar">
+  <a class="brand" href="#" aria-label="Afterglow home"><span class="brand-mark">A</span><span>AFTERGLOW <small>COVER STUDIO</small></span></a>
+  <div class="top-actions"><span class="save-state"><i></i> LOCAL SESSION</span><button class="button button-dark" id="exportTop"><span>Export cover</span><b>↗</b></button></div>
+</header>
+<main class="workspace">
+  <section class="editor" aria-label="Cover editor">
+    <div class="section-head"><div><p class="kicker">YOUR NEXT COVER</p><h1>Make the night yours.</h1></div><span class="step-count">01 <span>/</span> 03</span></div>
+    <div class="upload-row"><div><strong>Build your scene</strong><p>Choose a photo, then give every panel its own point of view.</p></div><label class="button button-light upload-button"><span>＋ Add photos</span><input id="photoInput" type="file" accept="image/*" multiple></label></div>
+    <div id="photoShelf" class="photo-shelf" aria-label="Photo library"></div>
+    <div class="panel-heading"><div><strong>Story panels</strong><span id="panelCount">3 frames</span></div><button id="addPanel" class="icon-button" title="Add a panel" aria-label="Add a panel">＋</button></div>
+    <div id="panelList" class="panel-list"></div>
+    <div class="framing-control"><label for="zoomInput" id="framingLabel">Frame 1 crop</label><input id="zoomInput" type="range" min="1" max="3" step="0.05" value="1" aria-label="Selected frame zoom"><button id="centerPanel" type="button">Center</button><small>Drag the photo in the preview to position it.</small></div>
+    <div class="caption-control"><label for="captionInput"><span>Cover title</span><small id="captionCount">0 / 24</small></label><input id="captionInput" maxlength="24" value="VICE AFTER DARK"><div class="caption-meta"><span>Display type</span><div class="segmented"><button class="selected" data-font="display">Block</button><button data-font="condensed">Condensed</button></div></div></div>
+    <div class="finish-controls"><div><strong>Color treatment</strong><span>Warm dusk · electric accents</span></div><div id="gradeControl" class="grade-switch" role="group" aria-label="Color treatment"><button data-grade="sunset" class="selected">Sunset</button><button data-grade="neon">Neon</button><button data-grade="mono">Noir</button></div></div>
+    <div class="export-row"><div><strong>Share format</strong><span id="sizeLabel">1080 × 1350 · Portrait</span></div><select id="formatSelect" aria-label="Export dimensions"><option value="portrait">Portrait · 1080 × 1350</option><option value="square">Square · 1080 × 1080</option><option value="landscape">Landscape · 1920 × 1080</option></select></div>
+    <button id="exportButton" class="button export-button"><span>Export PNG</span><b>↗</b></button>
+    <p class="privacy-note"><span>⌑</span> Your photos stay on this device. Nothing is uploaded.</p>
+  </section>
+  <section class="preview-area" aria-label="Live cover preview">
+    <div class="preview-toolbar"><div class="preview-tabs"><button class="active">COVER</button><button id="fitButton">FIT TO FRAME</button></div><div class="preview-tools"><span id="previewSize">1080 × 1350</span><button id="resetButton" class="icon-button" title="Reset photo positions" aria-label="Reset photo positions">⟲</button></div></div>
+    <div class="canvas-stage"><canvas id="coverCanvas" width="540" height="675" aria-label="Live cover artwork"></canvas><div id="emptyState" class="empty-state" hidden><b>✳</b><strong>Your cover is taking shape</strong><span>Add a photo to start the scene</span></div></div>
+    <div class="preview-footer"><span><i></i> LIVE PREVIEW</span><span>DRAG PANELS TO REFRAME</span></div>
+    <div class="scene-note"><div><b>ONE NIGHT. YOUR STORY.</b><p>One photo or five. A different angle in every frame.</p></div><button id="quickAdd" class="thumb-add" title="Add story panel" aria-label="Add story panel">＋</button></div>
+  </section>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
