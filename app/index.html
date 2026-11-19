@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: blob:; connect-src 'none'">
+  <title>Afterglow — Cover Studio</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./src/cover.js"></script>
+  <script defer src="./src/roadster.js"></script>
+  <script defer src="./samples/demo-images.min.js"></script>
+  <script defer src="./src/main.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><i class="sun-mark" aria-hidden="true"></i><div><strong>AFTERGLOW</strong><span>COVER STUDIO</span></div></div>
+    <div class="top-actions"><span class="privacy"><i></i> Runs offline</span><button id="export" class="primary" type="button">Export PNG <span aria-hidden="true">↓</span></button></div>
+  </header>
+  <main class="studio">
+    <aside class="inspector" aria-label="Cover settings">
+      <section class="settings">
+        <div class="section-head"><h2>Photos</h2><button id="demo" class="text-button" type="button">Load demo</button></div>
+        <input id="photo" type="file" multiple accept="image/*" hidden>
+        <button id="add" class="upload" type="button"><span aria-hidden="true">＋</span> Add photos <small>or drop files</small></button>
+      </section>
+      <section class="settings">
+        <div class="section-head"><h2>Lettering</h2></div>
+        <label class="field" for="caption">Headline</label>
+        <textarea id="caption" rows="2" spellcheck="false" maxlength="100">LAST LIGHT
+CLUB</textarea>
+        <div class="text-fields">
+          <div><label class="field" for="eyebrow">Kicker</label><input id="eyebrow" maxlength="36" value="THE COASTAL EDIT"></div>
+          <div><label class="field" for="edition">Small print</label><input id="edition" maxlength="44" value="NO CURFEW. NO CAMERAS."></div>
+        </div>
+      </section>
+      <section class="settings look">
+        <div class="section-head"><h2>Look &amp; format</h2></div>
+        <div class="segments grades" aria-label="Color grade">
+          <button data-grade="sunset" aria-pressed="true"><i></i>Sunset</button>
+          <button data-grade="neon" aria-pressed="false"><i></i>Neon</button>
+          <button data-grade="gold" aria-pressed="false"><i></i>Gold</button>
+        </div>
+        <div class="segments formats" aria-label="Export size">
+          <button data-format="wide" aria-pressed="true"><i></i>16:9</button>
+          <button data-format="square" aria-pressed="false"><i></i>1:1</button>
+          <button data-format="portrait" aria-pressed="false"><i></i>4:5</button>
+        </div>
+      </section>
+      <section class="settings crop">
+        <div class="section-head"><h2 id="crop-title">Panel crop</h2><button id="reset" class="text-button" type="button">Reset crop</button></div>
+        <label class="field" for="source">Panel image</label>
+        <select id="source"></select>
+        <div class="slider"><label for="zoom">Zoom</label><input id="zoom" type="range" min="1" max="3" step="0.01" value="1"><output id="zoom-value" for="zoom">100%</output></div>
+        <div class="slider"><label for="pan-x">Left / right</label><input id="pan-x" type="range" min="-1" max="1" step="0.01" value="0"></div>
+        <div class="slider"><label for="pan-y">Up / down</label><input id="pan-y" type="range" min="-1" max="1" step="0.01" value="0"></div>
+      </section>
+    </aside>
+    <section class="workspace" aria-label="Live poster preview">
+      <div class="workspace-bar"><h1>Cover preview</h1><span id="dimensions" class="dimensions">1920 × 1080 PX</span></div>
+      <div class="stage" id="stage">
+        <div class="mat" id="mat">
+          <canvas id="cover" width="1920" height="1080" aria-label="Poster preview. Select a panel below to edit its crop."></canvas>
+          <canvas id="selection" width="1920" height="1080" aria-hidden="true"></canvas>
+        </div>
+      </div>
+      <div class="tray">
+        <div class="tray-head"><h2>Panels</h2><span id="tip">Select a panel or drag its photo to reframe.</span></div>
+        <div id="panels" class="panels" aria-label="Select panel"></div>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+</body>
+</html>
