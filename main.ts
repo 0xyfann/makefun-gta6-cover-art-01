@@ -1,27 +1,19 @@
-// Package Afterglow's offline editor and its Chromium captures for make.fun.
 import { cpSync, mkdirSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-app.ts';
 
-const here = fileURLToPath(new URL('.', import.meta.url));
-const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
-
-mkdirSync(out, { recursive: true });
-cpSync(join(here, 'app'), join(out, 'app'), { recursive: true });
-cpSync(join(here, 'screenshots'), join(out, 'screenshots'), { recursive: true });
-
-// The scorer's own caps (reference/gate.json): only text_max_bytes shapes the bytes; the others refuse an entry the
-// scorer would refuse (more than 4 screenshots or one over 256 KiB; more than 993 files in app/ or 48 MiB of app
-// files, in all, or a path under app/ over 1000 bytes: app/ counts beside /output's own 1000-entry cap, its
-// screenshots/ and dossier.json).
-writeFileSync(
-  join(out, 'dossier.json'),
-  buildDossier(out, {
-    text_max_bytes: 163840,
-    screenshots: { max: 4, max_bytes: 262144 },
-    app_max_files: 993,
-    app_max_bytes: 50331648,
-    app_path_max_bytes: 1000,
-  }),
-);
+const root = dirname(fileURLToPath(import.meta.url));
+const output = resolve(process.env.MAKEFUN_OUTPUT_DIR || '/output');
+mkdirSync(output, { recursive: true });
+cpSync(resolve(root, 'app'), resolve(output, 'app'), { recursive: true });
+cpSync(resolve(root, 'screenshots'), resolve(output, 'screenshots'), { recursive: true });
+const dossierBytes = buildDossier(output, {
+  text_max_bytes: 163840,
+  screenshots: { max: 4, max_bytes: 262144 },
+  app_max_files: 993,
+  app_max_bytes: 50331648,
+});
+if (dossierBytes.byteLength > 1572864) throw new Error('Dossier exceeds the 1.5 MiB competition limit');
+writeFileSync(resolve(output, 'dossier.json'), dossierBytes);
+console.log(`Afterglow dossier ready: ${dossierBytes.byteLength} bytes`);
